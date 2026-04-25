@@ -1,4 +1,63 @@
-# JoomShopping MCP — Tool Reference
+# JoomShopping MCP Server
+
+MCP server exposing JoomShopping REST API tools to AI assistants (Claude, etc.).
+
+---
+
+## Requirements
+
+- PHP 8.0+
+- Joomla 4.x, 5.x, 6.x with the Web Services API plugin enabled
+- [JoomShopping 5.9.0+](https://www.webdesigner-profi.de/joomla-webdesign/joomla-shop/downloads.html) with the [Web Services REST API add-on](https://www.webdesigner-profi.de/joomla-webdesign/shop/special/web-services-rest-api.html)
+- API Bearer token for authentication
+
+---
+
+## Installation
+
+### Creating a Joomla API Token
+
+1. **Access user profile:** Log in to the Joomla administrator panel and go to the **Users** menu, then select **Manage**.
+2. **Edit super user:** Find and click the super user account (or the required user) to edit the profile.
+3. **Generate token:** Go to the **Joomla API Tokens** tab, click **Generate**, and copy the displayed token.
+
+### Install the server locally
+
+Clone or download this repository into a local folder, for example `H:\joomshopping-mcp`.
+
+### Installing on Claude or other AI assistants
+
+**Method 1 — via command (Windows)**
+
+```
+claude mcp add --transport stdio joomshopping --env BASE_URL=http://your-site.com --env API_TOKEN=Joomla-API-Token -- cmd /c php.exe H:/joomshopping-mcp/server.php
+```
+
+**Method 2 — directly in the config file**
+
+The config file is located at `~/.claude.json` (Claude Code) or `claude_desktop_config.json` (Claude Desktop). Open it and add the following to the `mcpServers` section:
+
+```json
+{
+  "mcpServers": {
+    "joomshopping": {
+      "type": "stdio",
+      "command": "C:\\OSPanel\\modules\\PHP-8.3\\PHP\\php.exe",
+      "args": [
+        "H:\\joomshopping-mcp\\server.php"
+      ],
+      "env": {
+        "BASE_URL": "http://site.com",
+        "API_TOKEN": "JOOMLA TOKEN"
+      }
+    }
+  }
+}
+```
+
+---
+
+## Tool Reference
 
 Complete list of tools exposed by this MCP server.
 Each tool maps to a JoomShopping Web Service REST endpoint.
